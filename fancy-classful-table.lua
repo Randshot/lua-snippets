@@ -18,6 +18,7 @@ local new =
 		--
 		-- Right now it is a waste to keep the size in a table of its own but
 		-- I haven't yet determined what else I might want to keep private.
+		local arg = table.pack(...)
 		private_data[arg] = { size = #arg }
 
 		-- Return the already-created table.
@@ -80,7 +81,8 @@ list.clear =
 list.push =
 	function (self, ...)
 		local i = self:size()
-
+		local arg = table.pack(...)
+		
 		for _, v in ipairs(arg) do
 			i = i + 1
 			self[i] = v
@@ -193,7 +195,7 @@ list_mt.__call =
 	end
 
 --- Example usage:
-local printf = function (...) io.stdout:write(string.format(...)) end
+local printf = function (...) print(string.format(...)) end
 
 local my_list = list(1, 2, 3)
 my_list:push(4, 5, 6, 7, 8, 9, 10)
